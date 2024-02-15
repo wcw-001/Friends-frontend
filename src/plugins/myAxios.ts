@@ -19,6 +19,11 @@ myAxios.interceptors.request.use(function (config) {
 // 添加响应拦截器
 myAxios.interceptors.response.use(function (response) {
     console.log("我收到响应了")
+    //未登录跳转到登录页
+    if(response?.data.code === 40100){
+        const redirectUrl = window.location.href;
+        window.location.href = `/user/login?redirect=${redirectUrl}`;
+    }
     // 对响应数据做点什么
     return response.data;
 }, function (error) {

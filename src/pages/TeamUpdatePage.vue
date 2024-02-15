@@ -1,21 +1,15 @@
 <script setup lang="ts">
-import {ref} from "vue";
-import {useRouter} from "vue-router";
+import {onMounted, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
 import myAxios from "../plugins/myAxios.js";
 import {showFailToast, showSuccessToast} from "vant";
 
 const router = useRouter();
+const route = useRoute();
 //展示日期选择器
 const showPicker = ref(false);
 const minDate = new Date();
-const initFormData = {
-  "name": "",
-  "description": "",
-  "expireTime": null,
-  "maxNum": 3,
-  "password": "",
-  "status": 0
-}
+
 const currentDate = ref(['2022', '06', '01']);		//定义一个初始时间(年月日)
 const currentTime = ref(['12', '00', '00']);		//定义一个初始时间(时分秒)
 const columnsType = ['hour', 'minute', 'second'];
@@ -32,9 +26,25 @@ const onConfirm = () => {
   // console.log("addTeamData.value.expireTime: " + addTeamData.value.expireTime);
 
 };
-
+const id = route.query.id;
 //用户填写的表单数据
-const addTeamData = ref({...initFormData});
+const addTeamData = ref({})
+onMounted(async () => {
+  if(id <= 0){
+    showFailToast('加载队伍失败');
+    return;
+  }
+  const res = await myAxios.get("/team/get", {
+    params: {
+      id,
+    }
+  });
+  if (res?.code === 0) {
+    addTeamData.value = res.data;
+  } else {
+    showFailToast('加载队伍失败，请刷新重试');
+  }}
+)
 // 提交
 const onSubmit = async () => {
   const postData = {
@@ -42,9 +52,9 @@ const onSubmit = async () => {
     status: Number(addTeamData.value.status)
   }
   // todo 前端参数校验
-  const res = await myAxios.post("/team/add", postData);
+  const res = await myAxios.post("/team/update", postData);
   if (res?.code === 0 && res.data) {
-    showSuccessToast('添加成功');
+    showSuccessToast('更新成功');
     router.push({
       path: '/team',
       replace: true,
@@ -53,7 +63,6 @@ const onSubmit = async () => {
     showFailToast('添加失败');
   }
 }
-
 </script>
 
 <template>
@@ -103,11 +112,6 @@ const onSubmit = async () => {
             />
           </van-picker-group>
         </van-popup>
-        <van-field name="stepper" label="请选择最大人数">
-          <template #input>
-            <van-stepper v-model="addTeamData.maxNum" min="3" max="10"/>
-          </template>
-        </van-field>
         <van-field name="radio" label="队伍状态">
           <template #input>
             <van-radio-group v-model="addTeamData.status" direction="horizontal">

@@ -1,6 +1,6 @@
 <template>
   <van-nav-bar
-      title="标题"
+      :title="title"
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
@@ -25,12 +25,27 @@
   </van-tabbar>
 </template>
 
-<script setup>
+<script setup lang="ts">
 //import {ref} from "vue";
-import {showToast} from "vant";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import {ref} from "vue";
+import routes from "../config/route.ts";
 //import Team from "../pages/TeamPage.vue";
 const router = useRouter()
+const route = useRoute()
+const DEFAULT_TITLE = '伙伴匹配';
+const title = ref('伙伴匹配');
+
+/**
+ * 切换标题
+ */
+router.beforeEach((to,from) => {
+  const toPath = to.path;
+  const route = routes.find((route) => {
+    return toPath == route.path;
+  })
+  title.value = route?.title ?? DEFAULT_TITLE;
+})
 const onClickLeft = () => {
   router.back();
 }
@@ -39,10 +54,9 @@ const onClickRight = () => {
 }
 
 //const active = ref("index");
-const onChange = (index) => showToast(`标签 ${index}`);
 </script>
 <style scoped>
 #content {
-  padding-bottom: 50px;
+  padding-bottom: 150px;
 }
 </style>

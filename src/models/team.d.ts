@@ -10,9 +10,12 @@ export type TeamType = {
     expireTime?: Date;
     maxNum: number;
     password?: string;
-    //todo 定義枚舉值
+    userId: number
+    //todo 定义枚举类
     status: number;
     createTime: Date;
     updateTime: Date;
     createUser?: UserType;
+    hasJoin: boolean;
+    hasJoinNum?: number;
 };
