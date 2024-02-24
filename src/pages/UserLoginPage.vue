@@ -3,6 +3,8 @@ import {showFailToast, showSuccessToast} from "vant";
 import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import myAxios from "../plugins/myAxios.js";
+import campusImage from "../assets/friend.png"
+
 const userAccount = ref('');
 const userPassword = ref('');
 const router = useRouter();
@@ -22,9 +24,22 @@ const onSubmit = async () => {
     showFailToast('登录失败')
   }
 };
+const toForget = () => {
+  router.push("/forget")
+}
 </script>
 
 <template>
+  <div>
+    <van-row justify="center">
+      <van-image
+          width="343"
+          :src=campusImage
+          style="background-position:center;"
+      />
+    </van-row>
+  </div>
+  <div>
     <van-form @submit="onSubmit">
       <van-cell-group inset>
         <van-field
@@ -43,12 +58,21 @@ const onSubmit = async () => {
             :rules="[{ required: true, message: '请填写密码' }]"
         />
       </van-cell-group>
+      <span style="right: 22px;position: fixed;font-size: 12px;color: #3c89fc;text-decoration: underline"
+            @click="toForget">忘记密码?</span>
       <div style="margin: 16px;">
         <van-button round block type="primary" native-type="submit">
-          提交
+          登入
+        </van-button>
+        <van-button style="margin-top: 10px;background-color: #4e7abe;color: white" round block type="default"
+                    native-type="submit"
+                    to="/user/signup">
+          注 册
         </van-button>
       </div>
     </van-form>
+  </div>
+
 </template>
 
 <style scoped>

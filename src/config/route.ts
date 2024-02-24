@@ -11,6 +11,8 @@ import TeamUpdatePage from "../pages/TeamUpdatePage.vue";
 import UserUpdatePage from "../pages/UserUpdatePage.vue";
 import UserTeamCreatePage from "../pages/UserTeamCreatePage.vue";
 import UserTeamJoinPage from "../pages/UserTeamJoinPage.vue";
+import SignUpPage from "../pages/SignUpPage.vue";
+import ForgetPasswordPage from "../pages/ForgetPasswordPage.vue";
 
 const routes = [
     { path: '/', component: IndexPage },
@@ -24,7 +26,9 @@ const routes = [
     { path: '/team/update',title: '当前用户',component: TeamUpdatePage},
     { path: '/user/update',title: '更新信息',component: UserUpdatePage},
     { path: '/user/team/join',title: '加入队伍',component: UserTeamJoinPage},
-    { path: '/user/team/create',title: '创建队伍',component: UserTeamCreatePage}
+    { path: '/user/team/create',title: '创建队伍',component: UserTeamCreatePage},
+    {path: '/user/signup', component: SignUpPage},
+    {path: '/forget', title: '找回密码', component: ForgetPasswordPage, meta: {layout: 'forget'}},
 
 ]
 export default routes;
