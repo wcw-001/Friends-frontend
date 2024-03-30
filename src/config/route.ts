@@ -13,6 +13,8 @@ import UserTeamCreatePage from "../pages/UserTeamCreatePage.vue";
 import UserTeamJoinPage from "../pages/UserTeamJoinPage.vue";
 import SignUpPage from "../pages/SignUpPage.vue";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage.vue";
+import MessagePage from "../pages/MessagePage.vue";
+import ChatPage from "../pages/chatPage.vue";
 
 const routes = [
     { path: '/', component: IndexPage },
@@ -28,7 +30,8 @@ const routes = [
     { path: '/user/team/join',title: '加入队伍',component: UserTeamJoinPage},
     { path: '/user/team/create',title: '创建队伍',component: UserTeamCreatePage},
     {path: '/user/signup', component: SignUpPage},
-    {path: '/forget', title: '找回密码', component: ForgetPasswordPage, meta: {layout: 'forget'}},
-
+    {path: '/forget', title: '忘记密码',component: ForgetPasswordPage, meta: {layout: 'forget'}},
+    {path: '/message', title: '消息', component: MessagePage},
+    {path: '/chat', component: ChatPage, meta: {layout: 'chat'}},
 ]
 export default routes;

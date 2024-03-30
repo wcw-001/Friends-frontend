@@ -2,7 +2,7 @@
 <template>
   <div>
     <van-search v-model="searchText" placeholder="请输入搜索队伍" @search="onSearch" />
-    <van-button type="primary" @click="doCreateTeam">创建队伍</van-button>
+    <!--<van-button type="primary" @click="doCreateTeam">创建队伍</van-button>-->
     <team-card-list :teamList="teamList"/>
     <van-empty v-if="!teamList || teamList.length<1" description="未找到相关信息" />
   </div>
@@ -19,11 +19,11 @@ import {showFailToast} from "vant";
 const router = useRouter();
 const searchText = ref('');
 //跳转到加入队伍页
-const doCreateTeam = ()=>{
+/*const doCreateTeam = ()=>{
   router.push({
     path: "/team/add"
   })
-}
+}*/
 const teamList = ref([]);
 
 /**

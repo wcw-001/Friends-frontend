@@ -33,7 +33,9 @@ const toForget = () => {
   <div>
     <van-row justify="center">
       <van-image
-          width="343"
+          round
+          width="10rem"
+          height="10rem"
           :src=campusImage
           style="background-position:center;"
       />

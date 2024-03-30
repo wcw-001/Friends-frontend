@@ -43,7 +43,7 @@ const onSubmit = async () => {
     showFailToast('用户未登录');
     return;
   }
-  const res = await myAxios.post('/user/update',{
+  const res = await myAxios.put('/user/update',{
     'id': currentUser.id,
     [editUser.value.editKey as string]: editUser.value.currentValue,
   })

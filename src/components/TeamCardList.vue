@@ -27,7 +27,7 @@
       <template #footer>
         <van-button v-if="team.userId !== currentUser?.id && !team.hasJoin" size="mini" type="primary"  plain
                     @click="preJoinTeam(team)">加入队伍</van-button>
-        <van-button v-if="team.userId === currentUser?.id" size="mini"  plain @click="doUpdateTeam(team.id)">更新队伍</van-button>
+        <van-button v-if="team.userId === currentUser?.id" size="mini" plain @click="doUpdateTeam(team.id)">更新队伍</van-button>
         <!--todo 仅加入队伍可见-->
         <van-button v-if="team.hasJoin" size="mini"  plain @click="doQuitTeam(team.id)">退出队伍</van-button>
         <van-button v-if="team.userId === currentUser?.id" size="mini"  plain type="danger" @click="doDeleteTeam(team.id)">解散队伍</van-button>

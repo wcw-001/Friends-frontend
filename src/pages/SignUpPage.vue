@@ -32,7 +32,7 @@
             :rules="[{ required: true, message: '请填写验证码' }]"
         />
         <van-field
-            v-model="username"
+            v-model="userAccount"
             required
             label="用户名"
             placeholder="请输入用户名"
@@ -73,7 +73,7 @@ import campusImage from "../assets/friend.png"
 import myAxios from "../plugins/myAxios.ts";
 
 const reg_tel = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
-const username = ref('');
+const userAccount = ref('');
 const password = ref('');
 const phone = ref('');
 const code = ref('')
@@ -140,12 +140,13 @@ const onSubmit = async () => {
   }
   const res = await myAxios.post("/user/register", {
     phone: phone.value,
-    code: code.value,
-    userAccount: username.value,
+    //code: code.value,
+    userAccount: userAccount.value,
     userPassword: password.value,
     checkPassword: confirmPassword.value
   })
-  if (res?.data.code === 0) {
+  console.log(res)
+  if (res.code === 0) {
     showSuccessToast("注册成功")
     sessionStorage.setItem("token", res.data.data)
     location.href = "/after"

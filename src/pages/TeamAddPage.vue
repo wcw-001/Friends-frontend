@@ -22,7 +22,7 @@ const columnsType = ['hour', 'minute', 'second'];
 
 const onConfirm = () => {
   //组合过期时间，'T'是满足后端序列化配的
-  addTeamData.value.expireTime = currentDate.value.join('-') + 'T' + currentTime.value.join(':');
+  addTeamData.value.expireTime = currentDate.value.join('-') + ' ' + currentTime.value.join(':');
   showPicker.value = false;		//有了这行才会使picker点击“确认”后自动关闭
 
   //测试picker返回的值
@@ -127,7 +127,7 @@ const onSubmit = async () => {
             :rules="[{ required: true, message: '请填写密码' }]"
         />
       </van-cell-group>
-      <div style="margin: 16px;">
+      <div style="vantmargin: 16px;">
         <van-button round block type="primary" native-type="submit">
           创建
         </van-button>

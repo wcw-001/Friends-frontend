@@ -1,6 +1,4 @@
 <template>
-  <div>
-
     <template v-if ="user">
       <van-space style="margin-left: 20px">
         <van-image
@@ -13,16 +11,40 @@
         />
         <van-cell :title="user.username" is-link to="/user/update" style="width: 260px" :center="true">
           <template #label>
-            <van-text-ellipsis :content="user?.profile || '点此编辑个性签名'" />
+            <van-text-ellipsis :content="user?.profile || '点此编辑个性签名'" @click="toEditProfile"/>
           </template>
         </van-cell>
       </van-space>
-      <van-cell title="当前用户" :value="user?.username" />
+      <van-cell center style="margin-top: 15px">
+        <template #title>
+          <span style="margin-left: 20px">我的标签</span>
+        </template>
+        <template #value>
+          <van-tag v-for="tag in user.tags" plain type="danger" style="margin-right: 8px;margin-top: 8px">
+            {{ tag }}
+          </van-tag>
+        </template>
+      </van-cell>
+      <!--<van-cell title="当前用户" :value="user?.username" />
       <van-cell title="修改信息" is-link to="/user/update" />
       <van-cell title="我创建的队伍" is-link to="/user/team/create" />
-      <van-cell title="我加入的队伍" is-link to="/user/team/join" />
+      <van-cell title="我加入的队伍" is-link to="/user/team/join" />-->
+      <van-grid :border="false" style="padding: 10px">
+        <van-grid-item icon="friends" text="创建的队伍" to="/user/team/create" icon-color= "#0048ff"/>
+        <van-grid-item icon="cluster" text="加入的队伍" to="/user/team/join" icon-color="#11d35d"/>
+        <van-grid-item icon="add-square" text="添加队伍" to="/team/add" icon-color="#1989fa"/>
+        <van-grid-item icon="lock" text="修改密码" to="/forget" icon-color="#FF8000"/>
+        <van-grid-item icon="setting" text="我的信息" to="/user/update" icon-color="＃C0C0C0"/>
+      </van-grid>
+      <div style="margin: 16px;">
+        <van-button style="background-color:#f3f0f0 ;margin-left: 60px;margin-top: 10px;width: 220px; font-size: 16px"
+                    round
+                    type="default" native-type="submit"
+                    @click="logout">
+          退 出
+        </van-button>
+      </div>
     </template>
-  </div>
 
 </template>
 <script setup lang="ts">
@@ -30,7 +52,8 @@ import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 //import qs from "qs";
 import {getCurrentUser} from "../service/user.ts";
-import {showFailToast} from "vant";
+import {showFailToast, showSuccessToast} from "vant";
+import myAxios from "../plugins/myAxios.ts";
 
 /*
 const user = {
@@ -69,6 +92,31 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
       currentValue,
     }
   })
+}
+
+const toUserUpdatePage = () => {
+  router.push("/user/update")
+}
+
+const toEditProfile = () => {
+  router.push({
+    path: "/user/edit",
+    query: {
+      editKey: "profile",
+      editName: "个性签名",
+      editValue: user.value.profile
+    }
+  })
+}
+const logout = async () => {
+  let res = await myAxios.post("/user/logout");
+  console.log(res)
+  if (res.code === 0) {
+    showSuccessToast("退出成功")
+    await router.replace("/")
+  } else {
+    showFailToast("内部错误," + res.message)
+  }
 }
 </script>
 

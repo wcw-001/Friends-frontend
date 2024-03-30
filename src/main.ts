@@ -3,11 +3,12 @@ import App from './App.vue'
 // 1. 引入你需要的组件
 import {Button, Card, NavBar, Sidebar, SidebarItem} from 'vant';
 import * as VueRouter from 'vue-router';
+import { Field } from 'vant';
 // 2. 引入组件样式
 import 'vant/lib/index.css';
 import routes from "./config/route.ts";
 import '../global.css'
-
+import "../public/icon/iconfont.css"
 const app = createApp(App);
 // 3. 注册你需要的组件
 app.use(Button);
@@ -15,6 +16,7 @@ app.use(NavBar);
 app.use(Sidebar);
 app.use(SidebarItem);
 app.use(Card);
+app.use(Field);
 
 
 

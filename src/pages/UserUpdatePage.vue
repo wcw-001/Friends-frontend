@@ -1,12 +1,34 @@
 <template>
   <template v-if ="user">
-    <van-cell icon="photo-o" title="头像" is-link center>
-      <van-uploader v-model="fileList" :max-count="1" :after-read="afterRead" preview-size="60px">
-        <img :src="imgSrc" style="width: 48px;height: 48px;border-radius: 50%" alt=""/>
-      </van-uploader>
+    <van-cell icon="photo-o" title="头像" is-link center @click="toEditAvatar">
+      <div>
+        <van-uploader v-model="fileList" :max-count="1" :after-read="afterRead" preview-size="60px">
+          <van-image class="my-van-image"
+                     round
+                     fit="cover"
+                     width="2rem"
+                     height="2rem"
+                     :src="user.avatarUrl"
+          />
+        </van-uploader>
+      </div>
+
     </van-cell>
-    <van-cell icon="contact" title="昵称" is-link to="/user/edit" :value="user.username" @click="toEdit( 'username',  '昵称', user.username)"/>
-    <van-cell icon="user-o" title="账号"  :value="user.userAccount" />
+    <van-cell icon="contact" title="账号"  :value="user.userAccount" />
+    <van-cell icon="user-o" title="昵称" is-link to="/user/edit" :value="user.username" @click="toEdit( 'username',  '昵称', user.username)"/>
+    <van-cell title="标签" to="/user/tag" is-link>
+      <template #icon>
+        <van-icon name="like-o" style="top: 5px;margin-left: 5px;right: 5px;color: #ff0000"/>
+      </template>
+    </van-cell>
+    <van-cell title="个人简介" is-link @click="toEdit('profile','个性简介',user.profile)">
+      <template #value>
+        <van-text-ellipsis :content="user.profile || '还没有填写个性签名'"/>
+      </template>
+      <template #icon>
+        <van-icon name="award-o" style="top: 5px;margin-left: 5px;right: 5px;color: #ffa600"/>
+      </template>
+    </van-cell>
     <van-cell title="性别" is-link :value="user.gender"  @click="()=>showPicker=true">
       <span v-if="user.gender===1">男</span>
       <span v-if="user.gender===0">女</span>
@@ -18,6 +40,7 @@
         <van-icon v-if="user.gender===0" name="user-circle-o"
                   style="top: 5px;margin-left: 5px;right: 5px;color: #ff0000"/>
         <van-icon v-if="user.gender===2" name="user-circle-o" style="top: 5px;margin-left: 5px;right: 5px"/>
+        <van-icon v-if="user.gender === null" name="info-o">{{ "还没有填写性别" }}</van-icon>
       </template>
     </van-cell>
     <van-popup v-model:show="showPicker" round position="bottom">
@@ -28,10 +51,10 @@
           @cancel="()=>showPicker=false"
       />
     </van-popup>
-    <van-cell icon="phone-circle-o" title="电话" is-link to="/user/edit" :value="user.phone" @click="toEdit( 'phone',  '电话', user.phone)" />
-    <van-cell icon="comment-circle-o" title="邮箱" is-link to="/user/edit" :value="user.email" @click="toEdit( 'email',  '邮箱', user.email)"/>
-    <van-cell title="编号" :value="user.userCode" />
-    <van-cell title="注册时间" :value="user.createTime" />
+    <van-cell icon="phone-o" title="电话" is-link to="/user/edit" :value="user.phone" @click="toEdit( 'phone',  '电话', user.phone)" />
+    <van-cell icon="send-gift-o" title="邮箱" is-link to="/user/edit" :value="user.email" @click="toEdit( 'email',  '邮箱', user.email)"/>
+    <van-cell icon="orders-o" title="编号" :value="user.userCode" />
+    <van-cell icon="underway-o" title="注册时间" :value="user.createTime" />
   </template>
 
 </template>
@@ -57,8 +80,6 @@ const user = {
   userCode: '123',
   createTime: new Date()
 }*/
-const imgSrc = ref('')
-const fileList = ref([]);
 const router = useRouter();
 const user = ref('')
 const showPicker = ref(false);
@@ -69,7 +90,6 @@ async function getUser() {
   let currentUser = await getCurrentUser();
   if (currentUser) {
     user.value = currentUser
-    imgSrc.value = currentUser.avatarUrl
   } else {
     showFailToast("未登录")
     await router.replace("/user/login")
@@ -90,7 +110,7 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
     }
   })
 }
-
+const fileList = ref([]);
 const afterRead = async () => {
   let formData = new FormData();
   formData.append("file", fileList.value[0].file)
@@ -99,9 +119,10 @@ const afterRead = async () => {
       'Content-Type': 'multipart/form-data'
     }
   })
+  console.log(res)
   if (res.code === 0) {
     showSuccessToast("更新成功")
-    imgSrc.value = res?.data
+    user.value.avatarUrl = res?.data
   } else {
     showFailToast("更新失败：" + res.data.message)
   }

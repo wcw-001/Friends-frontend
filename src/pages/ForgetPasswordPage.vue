@@ -1,11 +1,11 @@
 <template>
   <van-sticky>
-    <van-nav-bar
+    <!--<van-nav-bar
         title="忘记密码"
         left-arrow
         @click-left="onClickLeft"
     >
-    </van-nav-bar>
+    </van-nav-bar>-->
   </van-sticky>
   <van-row justify="center">
     <van-image
@@ -116,12 +116,13 @@ const validator = () => {
 const username = ref("")
 const onSubmit = async () => {
   let res = await myAxios.get("/user/forget?phone=" + phone.value);
-  if (res?.data.code === 0) {
-    username.value = res.data.data
+  console.log(res)
+  if (res.code === 0) {
+    username.value = res.data
     one.value = false
     two.value = true
   } else {
-    showFailToast("失败" + (res.data.message ? `,${res.data.message}` : ''))
+    showFailToast("失败" + (res.message ? `,${res.message}` : ''))
   }
 }
 // const checkCode = async () => {
