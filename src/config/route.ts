@@ -15,6 +15,8 @@ import SignUpPage from "../pages/SignUpPage.vue";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage.vue";
 import MessagePage from "../pages/MessagePage.vue";
 import ChatPage from "../pages/chatPage.vue";
+import UserTagPage from "../pages/UserTagPage.vue";
+import UpdatePasswordPage from "../pages/UpdatePasswordPage.vue";
 
 const routes = [
     { path: '/', component: IndexPage },
@@ -33,5 +35,8 @@ const routes = [
     {path: '/forget', title: '忘记密码',component: ForgetPasswordPage, meta: {layout: 'forget'}},
     {path: '/message', title: '消息', component: MessagePage},
     {path: '/chat', component: ChatPage, meta: {layout: 'chat'}},
+    {path: '/user/tag', title: "标签选择", component: UserTagPage},
+    {path: '/update/password', title: '修改密码', component: UpdatePasswordPage, meta: {layout: 'password'}}
+
 ]
 export default routes;

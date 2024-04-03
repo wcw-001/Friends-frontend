@@ -1,14 +1,17 @@
 <template>
-  <van-nav-bar
-      :title="title"
-      left-arrow
-      @click-left="onClickLeft"
-      @click-right="onClickRight"
-  >
-    <template #right>
-      <van-icon name="search" size="18" />
-    </template>
-  </van-nav-bar>
+  <van-sticky>
+    <van-nav-bar
+        :title="title"
+        left-arrow
+        @click-left="onClickLeft"
+        @click-right="onClickRight"
+    >
+      <template #right>
+        <van-icon name="search" size="18" />
+      </template>
+    </van-nav-bar>
+  </van-sticky>
+
   <div id="content">
     <router-view/>
    <!-- <template v-if="active === 'index'">
@@ -31,7 +34,7 @@
   </van-tabbar>
 </template>
 
-<script setup lang="js">
+<script setup>
 //import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
@@ -50,10 +53,11 @@ const title = ref('相友聚');
 /**
  * 切换标题
  */
-router.beforeEach(async (to,from) => {
+router.beforeEach(async (to) => {
   const toPath = to.path;
-  const route = routes.find((route) => {
-    return toPath == route.path;
+  const route = routes.find((routes) => {
+    return toPath === routes.path;
+    //return routes.path ===toPath;
   })
   document.title = "相友聚"
   title.value = route?.title ?? DEFAULT_TITLE;

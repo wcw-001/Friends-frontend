@@ -46,7 +46,6 @@ const originTagList = [
       {text: "Python", id: "Python"},
       {text: "C++", id: "C++"},
       {text: "JavaScript", id: "JavaScript"},
-      {text: "Ruby", id: "Ruby"},
       {text: "PHP", id: "PHP"},
       {text: "Swift", id: "Swift"},
       {text: "Objective-C", id: "Objective-C"},
@@ -71,7 +70,7 @@ const originTagList = [
       {text: "Erlang", id: "Erlang"},
       {text: "Lisp", id: "Lisp"},
       {text: "Prolog", id: "Prolog"},
-      {text: "Smalltalk", id: "Smalltalk"}
+      {text: "Smalltalk", id: "Smalltalk"},
     ],
   },
   {
@@ -108,15 +107,12 @@ const doClose = (tag) => {
     return item !== tag;
   });
 };
-const doSearchResult = () => {
-  router.push({
-    path: "/user/list",
-    query: {
-      tags: activeIds.value
-    }
-  })
+const updateTag = async () => {
+  let res = await myAxios.put("/user/update/tags", activeIds.value);
+  if (res.code === 0) {
+    await router.replace("/user")
+  }
 }
-
 </script>
 
 <template>
@@ -156,7 +152,7 @@ const doSearchResult = () => {
   </van-cell-group>
 
   <div style="padding: 12px">
-    <van-button block type="primary" @click="doSearchResult">搜索</van-button>
+    <van-button block type="primary" @click="updateTag">添加</van-button>
   </div>
 
 </template>

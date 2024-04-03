@@ -16,6 +16,7 @@ export type TeamType = {
     createTime: Date;
     updateTime: Date;
     createUser?: UserType;
+    userSet?: UserType[];
     hasJoin: boolean;
     hasJoinNum?: number;
 };

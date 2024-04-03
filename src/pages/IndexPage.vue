@@ -6,6 +6,11 @@
       style="margin-bottom: 10px;margin-top: 0px"
       text="校园有着你朗朗书声，有着你写不完的试卷，有着你忘不掉的老师，有着你共同学习的同学，在这里你可以尽情发挥你最好的水平。在这里可以找到志同道合的校友奋笔直追！！"
   />
+  <van-swipe :autoplay="3000" class="my-swipe" style="width: 90%;height: 150px;margin: 0 auto" lazy-render>
+    <van-swipe-item v-for="image in images" :key="image">
+      <img :src="image" />
+    </van-swipe-item>
+  </van-swipe>
   <van-cell center title="心动模式">
     <template #right-icon>
       <van-switch v-model="isMatchMode" />
@@ -22,6 +27,7 @@ import myAxios from "../plugins/myAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
 //import qs from 'qs';
 import UserCardList from "../components/UserCardList.vue";
+import images from "../constants/Images.ts";
 
 //const route = useRoute();
 const  isMatchMode = ref<boolean>(false);
@@ -104,7 +110,9 @@ const mockUser = {
 </script>
 
 
-
 <style scoped>
-
+.my-swipe {
+  margin: 15px;
+  border-radius: 3%;
+}
 </style>

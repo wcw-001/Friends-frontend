@@ -1,11 +1,11 @@
 <template>
   <van-sticky>
-    <!--<van-nav-bar
+    <van-nav-bar
         title="忘记密码"
         left-arrow
         @click-left="onClickLeft"
     >
-    </van-nav-bar>-->
+    </van-nav-bar>
   </van-sticky>
   <van-row justify="center">
     <van-image

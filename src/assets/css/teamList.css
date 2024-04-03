@@ -1,0 +1,37 @@
+:deep(.van-image__img) {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    height: 128px;
+    object-fit: unset;
+}
+
+img .usersImgUrl {
+    height: 10px;
+    width: 10px;
+    float: left;
+    margin-left: -5px;
+    padding: 2px 0 2px 0;
+    border-radius: 55%;
+}
+
+:deep(.van-card__footer) {
+    flex: none;
+    text-align: right;
+    margin-top: 1px;
+    margin-right: -12px;
+}
+
+.omit {
+    font-size: 20px;
+    margin-top: -3px;
+    float: left
+}
+
+.add-button {
+    position: fixed;
+    bottom: 52px;
+    width: 50px;
+    right: 12px;
+    height: 50px;
+    border-radius: 50%;
+    z-index: 999;
+}

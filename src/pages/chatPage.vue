@@ -13,7 +13,7 @@
   </van-sticky>
   <div class="chat-container">
     <div class="content" ref="chatRoom" v-html="stats.content"></div>
-    <van-cell-group inset style="position: fixed;bottom: 50px;width: 100%">
+    <van-cell-group inset style="position: fixed;bottom: 0;width: 100%">
       <van-field
           v-model="stats.text"
           center
@@ -27,7 +27,7 @@
     </van-cell-group>
   </div>
 </template>
-<script setup lang="ts">
+<script setup >
 import {nextTick, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {showFailToast} from "vant";
@@ -72,7 +72,7 @@ const stats = ref({
 
 let socket = null;
 const heartbeatInterval = 30 * 1000; // 30秒
-let heartbeatTimer : any= null;
+let heartbeatTimer = null;
 
 const startHeartbeat = () => {
   heartbeatTimer = setInterval(() => {
@@ -305,7 +305,7 @@ const createContent = (remoteUser, nowUser, text, isAdmin, createTime) => {
     <div class="message other">
       <img :alt=${remoteUser.username} class="avatar" onclick="showUser(${remoteUser.id})" src=${remoteUser.avatarUrl}>
     <div class="info">
-      <span class="username">${remoteUser.username}  ${createTime}</span>
+      <span class="username">${remoteUser.username !== null ? remoteUser.username : ''}  ${createTime}</span>
       <p class="${isAdmin ? 'admin text' : 'text'}" >${text}</p>
 
     </div>

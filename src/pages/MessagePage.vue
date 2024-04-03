@@ -10,7 +10,7 @@
           <van-icon class-prefix="my-icon" name="wodefensi" color="#65cdf2" size="28"/>
         </template>
         <template #text>
-          <span style="margin-top: 50px;font-size: 14px">粉丝</span>
+          <span style="margin-top: 0px;font-size: 14px">粉丝</span>
         </template>
       </van-grid-item>
     </van-grid>
@@ -142,7 +142,7 @@ const toAIChat = () => {
 
 <style scoped>
 #messagePage {
-  margin-top: -30px;
+  margin-top: 0px;
 }
 
 .icon_area {

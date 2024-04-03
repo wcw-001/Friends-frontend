@@ -33,7 +33,7 @@
         <van-grid-item icon="friends" text="创建的队伍" to="/user/team/create" icon-color= "#0048ff"/>
         <van-grid-item icon="cluster" text="加入的队伍" to="/user/team/join" icon-color="#11d35d"/>
         <van-grid-item icon="add-square" text="添加队伍" to="/team/add" icon-color="#1989fa"/>
-        <van-grid-item icon="lock" text="修改密码" to="/forget" icon-color="#FF8000"/>
+        <van-grid-item icon="lock" text="修改密码" to="/update/password" icon-color="#FF8000"/>
         <van-grid-item icon="setting" text="我的信息" to="/user/update" icon-color="＃C0C0C0"/>
       </van-grid>
       <div style="margin: 16px;">
