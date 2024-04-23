@@ -7,7 +7,6 @@
             height="80"
             :src="user?.avatarUrl"
             @click="toUserUpdatePage"
-
         />
         <van-cell :title="user.username" is-link to="/user/update" style="width: 260px" :center="true">
           <template #label>
@@ -33,6 +32,17 @@
         <van-grid-item icon="friends" text="创建的队伍" to="/user/team/create" icon-color= "#0048ff"/>
         <van-grid-item icon="cluster" text="加入的队伍" to="/user/team/join" icon-color="#11d35d"/>
         <van-grid-item icon="add-square" text="添加队伍" to="/team/add" icon-color="#1989fa"/>
+        <van-grid-item text="好友列表" to="/my/friends">
+          <template #icon>
+            <van-icon name="contact" size="23" style="margin-bottom: 8px;color: #0a0dd2"/>
+          </template>
+        </van-grid-item>
+        <van-grid-item text="我的博文" to="/user/my/blogs">
+          <template #icon>
+            <van-icon class-prefix="my-icon" name="wofadetiezi" size="23" style="margin-bottom: 8px;color: #10d1d9"/>
+          </template>
+        </van-grid-item>
+        <van-grid-item icon="fire" text="贴吧" to="/user/blogs" icon-color="#FF0000"/>
         <van-grid-item icon="lock" text="修改密码" to="/update/password" icon-color="#FF8000"/>
         <van-grid-item icon="setting" text="我的信息" to="/user/update" icon-color="＃C0C0C0"/>
       </van-grid>
@@ -79,7 +89,7 @@ onMounted(async ()=>{
     }
   } else {
     showFailToast("未登录")
-    await router.replace("/user/login")
+    //await router.replace("/user/login")
   }
 })
 

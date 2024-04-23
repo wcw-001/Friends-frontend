@@ -15,17 +15,6 @@
       </van-grid-item>
     </van-grid>
     <van-divider/>
-    <van-cell @click="toAIChat">
-      <template #title>
-        <span class="cell-span">AI 助手</span>
-      </template>
-      <template #icon>
-        <div class="icon_area">
-          <van-icon color="#2a2e31" class-prefix="my-icon" name="wuguan" size="25"
-                    style="margin-left: 12px;margin-top: 13px"/>
-        </div>
-      </template>
-    </van-cell>
     <van-cell v-if="blogNum===0" to="/user/follow/blog">
       <template #title>
         <span class="cell-span">我的关注</span>
@@ -55,10 +44,10 @@
         <span class="cell-span">好友申请</span>
       </template>
       <template #icon>
-        <van-badge>
+        <van-badge >
           <div class="icon_area">
             <van-icon name="bell" size="25"
-                      style="margin-left: 12px;margin-top: 13px;color: #e89817"/>
+                      style="margin-left: 12px;margin-top: 13px;color: #e89817" :badge="record"/>
           </div>
         </van-badge>
       </template>
@@ -68,7 +57,7 @@
         <span class="cell-span">公共聊天室</span>
       </template>
       <template #label>
-        <span class="cell-span">CAMPUS官方聊天室</span>
+        <span class="cell-span">官方聊天室</span>
       </template>
       <template #icon>
         <div class="icon_area">
@@ -103,10 +92,13 @@ import myAxios from "../plugins/myAxios.ts";
 import {useRouter} from "vue-router";
 import defaultImg from "../assets/defalutTeamImg.jpg";
 import favicon from "../../public/favicon.ico"
-
+import {showSuccessToast} from "vant";
+import {getCurrentUser} from "../service/user.ts";
+import qs from "qs";
 const teamList = ref()
 const likeNum = ref(0)
 const blogNum = ref(0)
+const record = ref(0);
 onMounted(async () => {
   let res = await myAxios.get("/team/list/my/join");
   if (res?.code === 0) {
@@ -120,7 +112,13 @@ onMounted(async () => {
   if (res3.code === 0) {
     blogNum.value = Number(res3.data)
   }
+  let res4 = await myAxios.get("/friend/getRecordCount");
+  if (res4.code === 0) {
+    console.log(res4.data)
+    record.value = Number(res4.data)
+  }
 })
+
 let router = useRouter();
 const toChatRoom = (id, name) => {
   router.push({
@@ -135,9 +133,23 @@ const toChatRoom = (id, name) => {
 const toHallChat = () => {
   router.push("/chat")
 }
-const toAIChat = () => {
-  window.open("https://c.binjie.fun/", "_blank");
-}
+// const toRead = async () => {
+//   const ids = ref([]) ;
+//   const currentUser = await getCurrentUser();
+//   ids.value= currentUser.friendIds.split(",");
+//   let res = await myAxios.get("/friend/read",{
+//     params: {
+//       ids: ids.value
+//     },paramsSerializer: {
+//       serialize: params => qs.stringify(params, {indices: false}),
+//     }
+//   });
+//   console.log("hhhh:"+res.data);
+//     if (res.code === 0) {
+//       showSuccessToast('基尼太美');
+//     }
+//  }
+
 </script>
 
 <style scoped>

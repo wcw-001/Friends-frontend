@@ -8,7 +8,7 @@
   />
   <van-swipe :autoplay="3000" class="my-swipe" style="width: 90%;height: 150px;margin: 0 auto" lazy-render>
     <van-swipe-item v-for="image in images" :key="image">
-      <img :src="image" />
+      <img :src="image" style="width: 100%; height: 100%"/>
     </van-swipe-item>
   </van-swipe>
   <van-cell center title="心动模式">
@@ -112,7 +112,7 @@ const mockUser = {
 
 <style scoped>
 .my-swipe {
-  margin: 15px;
+  margin: 0px;
   border-radius: 3%;
 }
 </style>

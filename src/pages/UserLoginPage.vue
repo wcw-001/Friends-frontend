@@ -3,7 +3,7 @@ import {showFailToast, showSuccessToast} from "vant";
 import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import myAxios from "../plugins/myAxios.js";
-import campusImage from "../assets/friend.png"
+import friendImage from "../assets/friend.png"
 
 const userAccount = ref('');
 const userPassword = ref('');
@@ -36,7 +36,7 @@ const toForget = () => {
           round
           width="10rem"
           height="10rem"
-          :src=campusImage
+          :src=friendImage
           style="background-position:center;"
       />
     </van-row>

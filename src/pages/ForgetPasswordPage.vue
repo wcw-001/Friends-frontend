@@ -10,7 +10,7 @@
   <van-row justify="center">
     <van-image
         width="343"
-        :src= campusImage
+        :src= forgetImage
         style="background-position:center"
     />
   </van-row>
@@ -96,7 +96,7 @@ import {useRouter} from "vue-router";
 import {ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
-import campusImage from "../assets/friend.png"
+import forgetImage from "../assets/forget.png"
 
 const one = ref(true)
 const two = ref(false)
@@ -141,7 +141,7 @@ const confirmUpdate = async () => {
     password: password.value,
     confirmPassword: confirmPassword.value
   });
-  if (res?.data.code === 0) {
+  if (res?.code === 0) {
     showSuccessToast("修改成功")
     await router.replace("/user")
   } else {

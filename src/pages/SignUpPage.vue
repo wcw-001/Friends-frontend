@@ -3,7 +3,7 @@
     <van-row justify="center">
       <van-image
           width="343"
-          :src=campusImage
+          :src=friendImage
           style="background-position:center"
       />
     </van-row>
@@ -64,12 +64,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {ref} from "vue";
 import {showFailToast, showNotify, showSuccessToast} from "vant";
 import {useRouter} from "vue-router";
 import 'vant/es/notify/style'
-import campusImage from "../assets/friend.png"
+import friendImage from "../assets/friend.png"
 import myAxios from "../plugins/myAxios.ts";
 
 const reg_tel = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
@@ -147,11 +147,12 @@ const onSubmit = async () => {
   })
   console.log(res)
   if (res.code === 0) {
-    showSuccessToast("注册成功")
-    sessionStorage.setItem("token", res.data.data)
-    location.href = "/after"
+    //跳转到之前页面
+    const redirectUrl = route.query?.redirect as string ?? '/';
+    showSuccessToast('注册成功');
+    window.location.href = redirectUrl;
   } else {
-    showFailToast("注册失败," + res?.data.description ?? '')
+    showFailToast("注册失败," + res?.description ?? '')
   }
 };
 </script>

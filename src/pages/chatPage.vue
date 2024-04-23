@@ -133,7 +133,7 @@ onMounted(async () => {
       if (chat.isMy === true) {
         createContent(null, chat.formUser, chat.text,chat.isAdmin, chat.createTime)
       } else {
-        createContent(chat.formUser, null, chat.text, null, chat.createTime)
+        createContent(chat.toUser, null, chat.text, null, chat.createTime)
       }
     })
   }
@@ -172,7 +172,8 @@ const init = () => {
     showFailToast("您的浏览器不支持WebSocket")
   } else {
     // todo 修改为后端启动地址和端口
-    let socketUrl = `ws://localhost:8081/api/websocket/${uid}/${stats.value.team.teamId}`
+    let socketUrl = process.env.NODE_ENV !== "development" ? `ws://friend.wcw231407.cn/api/websocket/${uid}/${stats.value.team.teamId}`
+        : `ws://localhost:8081/api/websocket/${uid}/${stats.value.team.teamId}`
     // let socketUrl = `ws://pt.kongshier.top:8105/api/websocket/${uid}/${stats.value.team.teamId}`
     if (socket != null) {
       socket.close();
