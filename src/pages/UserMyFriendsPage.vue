@@ -40,12 +40,12 @@
 </template>
 
 
-<script setup>
+<script setup lang="ts">
 import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
-import {useRoute, useRouter} from "vue-router";
+import { useRouter} from "vue-router";
 
-const route = useRoute()
+//const route = useRoute()
 const router = useRouter()
 
 const loading = ref(true)

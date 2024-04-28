@@ -133,7 +133,7 @@ const afterRead = async () => {
 
 const onConfirmGender = async ({selectedValues}) => {
   const currentUser = await getCurrentUser();
-  const res = await myAxios.put("/user/update", {
+  const res:any = await myAxios.put("/user/update", {
     id: currentUser.id,
     gender: selectedValues[0]
   })

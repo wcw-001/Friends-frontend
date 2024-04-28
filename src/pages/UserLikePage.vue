@@ -14,7 +14,7 @@
     <user-like-list :like-list="likeList"/>
 </template>
 
-<script setup>
+<script setup >
 import UserCommentList from "../components/UserCommentList.vue";
 import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";

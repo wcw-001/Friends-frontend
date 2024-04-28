@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const myAxios = axios.create({
-    baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:8081/api' : 'http://friend.wcw231407.cn/api',
+    baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:8081/api' : 'https://friend.wcw231407.cn/api',
 });
 myAxios.defaults.withCredentials = true
 //请求头携带cookie
@@ -17,7 +17,7 @@ myAxios.interceptors.request.use(function (config) {
     // 对请求错误做些什么
     return Promise.reject(error);
 });
-let token = sessionStorage.getItem("token");
+
 // 添加响应拦截器
 myAxios.interceptors.response.use(function (response) {
 
