@@ -27,7 +27,7 @@
     </van-cell-group>
   </div>
 </template>
-<script setup >
+<script setup lang="ts">
 import {nextTick, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {showFailToast} from "vant";

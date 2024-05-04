@@ -62,7 +62,7 @@
   </van-dialog>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";

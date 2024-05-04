@@ -14,7 +14,7 @@
     <blog-card-list v-if="blogList.length>0" :blog-list="blogList"/>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
 import BlogCardList from "../components/BlogCardList.vue";

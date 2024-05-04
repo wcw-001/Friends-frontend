@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import {useRouter} from "vue-router";
-import myAxios from "../plugins/myAxios.ts";
+//import myAxios from "../plugins/myAxios.ts";
+import {showFailToast} from "vant";
 const searchText = ref('');
 const userDefinedTag = ref("")
 //已选中的标签

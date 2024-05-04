@@ -50,7 +50,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {onMounted, ref} from "vue";
 import {showFailToast, showSuccessToast} from "vant";
 import {useRoute, useRouter} from "vue-router";
