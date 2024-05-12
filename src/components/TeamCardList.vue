@@ -36,7 +36,7 @@
                ...
             </span>
           </div>
-          <div v-if="currentUser?.id!==team.userId &&currentUser.userRole!==1" style="margin-left: 103px;margin-top: 5px ">
+          <div v-if="currentUser?.id!==team.userId &&currentUser.userRole!==1" style="margin-left: 5px;margin-top: 7px ">
             <span v-for="user of team.userSet.slice(0, 5)" >
               <img :alt="user.username" :src="user.avatarUrl ? user.avatarUrl:defaultPicture" class="usersImgUrl">
             </span>

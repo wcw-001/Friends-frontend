@@ -3,6 +3,7 @@
 //import BasicLayout from "./layouts/BasicLayout.vue";
 import {useRoute} from "vue-router";
 import {computed} from "vue";
+import 'vant/es/toast/style';
 let route = useRoute();
 const default_layout = "default"
 const isRouterAlive = true

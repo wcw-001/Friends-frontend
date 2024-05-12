@@ -48,7 +48,7 @@ const likeComment = async (comment) => {
     let res = await myAxios.put("/comments/like/" + comment.id);
     if (res?.code === 0) {
         let res_ = await myAxios.get("/comments/" + comment.id);
-        if (res_?.data.code === 0) {
+        if (res_?.code === 0) {
             comment.likedNum = res_.data.likedNum
             comment.isLiked = res_.data.isLiked
         }

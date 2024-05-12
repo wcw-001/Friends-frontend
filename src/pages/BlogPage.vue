@@ -57,7 +57,7 @@
                    :border="false"
                    style="position: fixed;bottom: 0;padding-left: 16px;border-top: 1px solid #C1C1C1;padding-right: 10px">
             <template #right-icon>
-                <van-icon class-prefix="my-icon" name="shangchuan" size="40" color="#4387f6" @click="addComment"/>
+                <van-icon class-prefix="my-icon" name="shangchuan" size="40" color="#4387f6" @click="addComment(blog)"/>
             </template>
             <template #button>
                 <van-icon name="smile-comment-o" size="20" style="margin-right: 5px">
@@ -74,7 +74,7 @@
         </van-field>
     </van-cell-group>
     <van-popup
-        v-if="blog.userId===currentUser.id || currentUser.role===1"
+        v-if="blog.userId===currentUser.id || currentUser.role===0"
         v-model:show="showBottom"
         round
         position="bottom"
@@ -174,15 +174,16 @@ const commentList = ref([])
 const currentUser = ref({})
 const listComments = async () => {
     let id = route.query.id;
-    let commentRes = await myAxios.get("/comments?blogId=" + id);
+    let commentRes = await myAxios.get("/comments/list?blogId=" + id);
     if (commentRes?.code === 0) {
-        commentList.value = commentRes.data.data
+        commentList.value = commentRes.data
     }
 }
 onMounted(async () => {
     currentUser.value = await getCurrentUser();
     let id = route.query.id;
     let res = await myAxios.get("/blog/" + id);
+    console.log(res)
     if (res?.code === 0) {
         blog.value = res.data
         author.value = res.data.author
@@ -195,7 +196,9 @@ onMounted(async () => {
     }
     await listComments()
 })
+
 const likeBlog = async (blog) => {
+  console.log("博客的值："+blog)
     let res = await myAxios.put("/blog/like/" + blog.id);
     if (res?.code === 0) {
         let res_ = await myAxios.get("/blog/" + blog.id);
@@ -205,14 +208,17 @@ const likeBlog = async (blog) => {
         }
     }
 }
-const addComment = async () => {
+
+const addComment = async (blog) => {
+    console.log("博客的值："+blog.value)
     if (comment.value === "") {
         showFailToast("请输入评论内容")
     } else {
         let res = await myAxios.post("/comments/add", {
-            blogId: blog.value.id,
+            blogId: Number(blog.id),
             content: comment.value
         });
+        console.log(res)
         if (res?.code === 0) {
             showSuccessToast("添加成功")
         } else {
